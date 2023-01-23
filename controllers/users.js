@@ -9,14 +9,12 @@ const listUsers = (req,res) => {
 // 404 code
 const showUsers = (req, res) => {
 
-    const reqId = parseInt(req.params.id)
-
+    const reqId = parseInt(req.params.id);
     const requestedUser = users.filter(user => {
         if(reqId === user.id) {
             return user
         }} 
 );
-
     if(users.find(user => reqId === user.id)) {
         res.json(requestedUser)
     } else {
@@ -43,10 +41,10 @@ const createUsers = (req, res) => {
 
   // 400 code
 const updateUsers = (req,res) =>  {
+    const reqId = parseInt(req.params.id);
     const updatedUser = req.body;
     users.map(user => {
-      if(parseInt(req.params.id) === user.id) {
-       
+      if(reqId === user.id) {
         user.name = updatedUser.name ? updatedUser.name : updatedUser.name,
         user.username = updatedUser.username ? updatedUser.username : updatedUser.username,
         user.email = updatedUser.email ? updatedUser.email : updatedUser.email,
@@ -56,21 +54,27 @@ const updateUsers = (req,res) =>  {
         user.company = updatedUser.company ? updatedUser.company : updatedUser.company
         res.json(user);
       }     
-    }
-    )
+    })
+
+    if(users.find(user => reqId === user.id)) {
+        res.json(updatedUser)
+    } else {
+        res.status(400).send('User does not exist')} 
   };
 
   // 400 code
 const deleteUsers = (req, res) => { 
-   const notDeletedUsers = users.filter(user => {
-      if(parseInt(req.params.id) !== user.id) {
+    const reqId = parseInt(req.params.id);
+    const notDeletedUsers = users.filter(user => {
+      if(reqId !== user.id) {
         return user;
       } 
     })
 
-    if(notDeletedUsers) {
+    if(users.find(user => reqId === user.id)) {
         res.json(notDeletedUsers)
-    } else (res.status(400).send("User doesn't exist"))
+    } else {
+        res.status(400).send('User does not exist')} 
   };
 
 module.exports = {listUsers, showUsers, createUsers, updateUsers, deleteUsers}
