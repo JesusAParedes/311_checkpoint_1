@@ -22,17 +22,16 @@ const showUsers = (req, res) => {
 }
 
 const createUsers = (req, res) => {
-    req.body = newUser;
-    console.log(users.length);
+    const clientUser = req.body;
     const user = {
       "id": users.length + 1,
-      "name": newUser.name,
-      "username": newUser.username,
-      "email": newUser.email,
-      "address": newUser.address,
-      "phone": newUser.phone,
-      "website": newUser.website,
-      "company": newUser.company
+      "name": clientUser.name,
+      "username": clientUser.username,
+      "email": clientUser.email,
+      "address": clientUser.address,
+      "phone": clientUser.phone,
+      "website": clientUser.website,
+      "company": clientUser.company
   }
      users.push(user);
     res.send(user);
