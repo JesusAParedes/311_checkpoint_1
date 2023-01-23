@@ -8,20 +8,20 @@ const listUsers = (req,res) => {
 
 // 404 code
 const showUsers = (req, res) => {
-      const requestedUser = users.filter(user => {
-            if(parseInt(req.params.id) === user.id) {
-                console.log('user', user)
-                return user
-            }
-        } 
-    );
-    console.log('requestedUser', requestedUser)
-    if(users.includes(requestedUser)) {
-        res.json(requestedUser)}
-        else {
-            console.log('includes', users.includes(requestedUser))
-            res.status(400).send('User does not exist')}
-    };
+
+    const reqId = parseInt(req.params.id)
+
+    const requestedUser = users.filter(user => {
+        if(reqId === user.id) {
+            return user
+        }} 
+);
+
+    if(users.find(user => reqId === user.id)) {
+        res.json(requestedUser)
+    } else {
+        res.status(404).send('User does not exist')}   
+}
 
 const createUsers = (req, res) => {
     req.body = newUser;
