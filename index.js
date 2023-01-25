@@ -5,6 +5,7 @@ const usersRoute = require('./routes/users');
 
 app.use(express.json());
 
+//route that the router uses
 app.use(usersRoute);
 
 app.listen(port, () => {
